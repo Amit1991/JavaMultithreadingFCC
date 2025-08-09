@@ -98,7 +98,11 @@ public class TaskScheduler {
                         }
                     }
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    if (running.get()) {
+                        continue;
+                    } else {
+                        break;
+                    }
                 } finally {
                     lock.unlock();
                 }
